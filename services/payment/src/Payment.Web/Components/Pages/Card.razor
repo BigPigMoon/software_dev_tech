@@ -1,0 +1,55 @@
+﻿@page "/card/{CardId:guid}"
+@rendermode InteractiveServer
+
+<PageTitle>Card controller</PageTitle>
+
+<h1>Карта: @CardId</h1>
+
+@if (_loading)
+{
+    <p>
+        <em>Loading...</em>
+    </p>
+}
+else
+{
+    <div class="">
+        <p role="status">Текущий баланс: @_currentBalance</p>
+        <div class="mb-4">
+            <div class="form-floating mb-3">
+                <input id="amountInput" class="form-control" type="text" @bind="_userInput" placeholder="Введите сумму пополнения"/>
+                <label for="amountInput">Сумма пополнения</label>
+            </div>
+            <button class="btn btn-primary mx-2" @onclick="AddMoney">Пополнить счет</button>
+        </div>
+        <button class="btn btn-danger" @onclick="BuyTicket">Купить билет</button>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public Guid CardId { get; set; }
+    private string _userInput = string.Empty;
+    private int _currentBalance = 0;
+    private bool _loading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(500);
+        _loading = false;
+
+        _currentBalance = 500;
+    }
+
+    private void AddMoney()
+    {
+        _currentBalance += Convert.ToInt32(_userInput);
+        _userInput = "";
+    }
+
+    private void BuyTicket()
+    {
+        _currentBalance -= 32;
+    }
+
+}
