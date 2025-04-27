@@ -8,6 +8,7 @@ internal class StatisticHttpClient : BaseHttpClient, IStatisticHttpClient
 
     public async Task SendBuyTicketEventAsync(Guid terminalId, CancellationToken cancellationToken)
     {
-        await PostAsync<BuyTicketEventRequest, BuyTicketEventResponse>("/buy/ticket", new BuyTicketEventRequest(terminalId));
+        // TODO: uncomment later
+        // await PostAsync<BuyTicketEventRequest, BuyTicketEventResponse>("/buy/ticket", new BuyTicketEventRequest(terminalId));
     }
 }

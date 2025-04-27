@@ -1,0 +1,30 @@
+﻿version: '3.8'
+
+services:
+  web:
+    image: payment.web:latest
+    build:
+      context: ./services/payment/src/Payment.Web
+      dockerfile: Dockerfile
+    ports:
+      - "5000:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__PaymentWebDb=Host=db;Database=ikars;Username=postgres;Password=postgres
+    depends_on:
+      - db
+
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: ikars
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

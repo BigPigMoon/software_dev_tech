@@ -17,7 +17,7 @@ public static class ServiceExtensions
             client.BaseAddress = new Uri("https://jsonplaceholder.typicode.com");
         });
         
-        services.AddHttpClient<IStaffHttpClient, StaffHttpClient>(client =>
+        services.AddHttpClient<IStaffHttpClient, FakeStaffHttpClient>(client =>
         {
             client.BaseAddress = new Uri("https://jsonplaceholder.typicode.com");
         });
