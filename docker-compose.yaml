@@ -4,8 +4,8 @@ services:
   web:
     image: payment.web:latest
     build:
-      context: ./services/payment/src/Payment.Web
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./services/payment/src/Payment.Web/Dockerfile
     ports:
       - "5000:8080"
     environment:
