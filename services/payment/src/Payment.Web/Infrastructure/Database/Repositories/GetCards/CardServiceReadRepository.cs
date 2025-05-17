@@ -9,7 +9,7 @@ internal class GetCardServiceReadRepository : IGetCardServiceReadRepository
 
     public GetCardServiceReadRepository(PaymentDbContext dbContext)
     {
-        _dbContext = dbContext;
+        _dbContext = dbCext;
     }
 
     public async Task<IEnumerable<Card>> GetAllCards()
