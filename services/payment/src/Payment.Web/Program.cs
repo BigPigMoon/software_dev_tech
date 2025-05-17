@@ -26,6 +26,23 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.Use(async (context, next) =>
+{
+    var ipAddress = context.Connection.RemoteIpAddress?.ToString();
+    var timeStamp = DateTime.UtcNow.ToString("O");
+    var logMessage = $"{timeStamp} - {ipAddress}";
+
+    var logFilePath = Environment.GetEnvironmentVariable("LOG_FILE_PATH");
+    if (!string.IsNullOrEmpty(logFilePath))
+    {
+        await using var stream = new FileStream(logFilePath, FileMode.Append, FileAccess.Write, FileShare.None);
+        await using var writer = new StreamWriter(stream);
+        await writer.WriteLineAsync(logMessage);
+    }
+
+    await next.Invoke();
+});
+
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();

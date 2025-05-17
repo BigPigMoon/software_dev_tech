@@ -15,7 +15,8 @@
         "launchBrowser": true,
         "applicationUrl": "http://localhost:5009",
         "environmentVariables": {
-          "ASPNETCORE_ENVIRONMENT": "Development"
+          "ASPNETCORE_ENVIRONMENT": "Development",
+          "LOG_FILE_PATH": "./logs/log.txt"
         }
       },
       "https": {
@@ -24,14 +25,16 @@
         "launchBrowser": true,
         "applicationUrl": "https://localhost:7217;http://localhost:5009",
         "environmentVariables": {
-          "ASPNETCORE_ENVIRONMENT": "Development"
+          "ASPNETCORE_ENVIRONMENT": "Development",
+          "LOG_FILE_PATH": "./logs/log.txt"
         }
       },
       "IIS Express": {
         "commandName": "IISExpress",
         "launchBrowser": true,
         "environmentVariables": {
-          "ASPNETCORE_ENVIRONMENT": "Development"
+          "ASPNETCORE_ENVIRONMENT": "Development",
+          "LOG_FILE_PATH": "./logs/log.txt"
         }
       }
     }
