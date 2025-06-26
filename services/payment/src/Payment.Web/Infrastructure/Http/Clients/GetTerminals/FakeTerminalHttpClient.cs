@@ -1,8 +1,8 @@
 ﻿namespace Payment.Web.Infrastructure.Http.Clients.GetTerminals;
 
-internal class FakeStaffHttpClient : BaseHttpClient, IStaffHttpClient
+internal class FakeTerminalHttpClient : BaseHttpClient, ITerminalHttpClient
 {
-    public FakeStaffHttpClient(HttpClient httpClient) : base(httpClient)
+    public FakeTerminalHttpClient(HttpClient httpClient) : base(httpClient)
     {
     }
 

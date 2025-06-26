@@ -1,17 +1,18 @@
 ﻿version: '3.8'
 
 services:
-  web:
+  payment:
     image: payment.web:latest
     build:
       context: .
       dockerfile: ./services/payment/src/Payment.Web/Dockerfile
     ports:
-      - "5000:8080"
+      - "8082:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - LOG_FILE_PATH=/var/log/payment/log.txt
       - ConnectionStrings__PaymentWebDb=Host=db;Database=ikars;Username=postgres;Password=postgres
+      - HttpClientSettings__TerminalServerBaseAddress=http://terminals:8082/
     volumes:
       - type: bind
         source: ./logs 
@@ -21,6 +22,24 @@ services:
     networks:
       novikov:
         ipv4_address: 10.20.5.6
+  
+  terminals:
+    build: ./services/terminals/src
+    ports:
+      - "3000:8082"
+    networks:
+      novikov:
+        ipv4_address: 10.20.5.9
+  
+  statistic_web:
+    image: nginx:alpine
+    volumes:
+      - ./services/statistic/web:/usr/share/nginx/html
+    ports: 
+      - "8080:80"
+    networks:
+      novikov:
+        ipv4_address: 10.20.5.12
 
   db:
     image: postgres:latest

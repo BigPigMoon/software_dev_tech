@@ -1,25 +1,18 @@
-﻿using Payment.Web.Application.GetCards;
-using Payment.Web.Application.Transactions;
-using Payment.Web.Infrastructure.Database;
-using Payment.Web.Infrastructure.Database.Repositories.GetCards;
-using Payment.Web.Infrastructure.Database.Repositories.Transactions;
-using Payment.Web.Infrastructure.Http.Clients.BuyTicket;
-using Payment.Web.Infrastructure.Http.Clients.GetTerminals;
+﻿using Payment.Web.Infrastructure.Http.Clients.GetTerminals;
 
 namespace Payment.Web.Infrastructure.Http;
 
 public static class ServiceExtensions
 {
-    public static IServiceCollection AddHttpClients(this IServiceCollection services)
+    public static IServiceCollection AddHttpClients(this IServiceCollection services, IConfiguration config)
     {
-        services.AddHttpClient<IStatisticHttpClient, StatisticHttpClient>(client =>
-        {
-            client.BaseAddress = new Uri("https://jsonplaceholder.typicode.com");
-        });
+        var terminalServerBaseAddress = config.GetValue<string>("HttpClientSettings:TerminalServerBaseAddress");
         
-        services.AddHttpClient<IStaffHttpClient, FakeStaffHttpClient>(client =>
+        ArgumentNullException.ThrowIfNull(terminalServerBaseAddress);
+        
+        services.AddHttpClient<ITerminalHttpClient, TerminalHttpClient>(client =>
         {
-            client.BaseAddress = new Uri("https://jsonplaceholder.typicode.com");
+            client.BaseAddress = new Uri(terminalServerBaseAddress);
         });
         
         return services;

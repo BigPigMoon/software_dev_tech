@@ -1,6 +1,6 @@
 ﻿namespace Payment.Web.Application.GetCards.Implementation;
 
-internal class GetCardService : IGetCardService
+public class GetCardService : IGetCardService
 {
     private readonly IGetCardServiceReadRepository _readRepository;
     

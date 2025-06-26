@@ -4,15 +4,15 @@ namespace Payment.Web.Application.Terminals.Implementation;
 
 internal class TerminalService : ITerminalService
 {
-    private readonly IStaffHttpClient _staffHttpClient;
+    private readonly ITerminalHttpClient _terminalHttpClient;
 
-    public TerminalService(IStaffHttpClient staffHttpClient)
+    public TerminalService(ITerminalHttpClient terminalHttpClient)
     {
-        _staffHttpClient = staffHttpClient;
+        _terminalHttpClient = terminalHttpClient;
     }
 
     public async Task<IEnumerable<Guid>> GetTerminalIdsAsync(CancellationToken cancellationToken)
     {
-        return await _staffHttpClient.GetTerminalIdsAsync(cancellationToken);
+        return await _terminalHttpClient.GetTerminalIdsAsync(cancellationToken);
     }
 }

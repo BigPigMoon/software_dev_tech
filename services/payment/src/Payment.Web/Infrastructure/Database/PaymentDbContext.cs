@@ -33,14 +33,16 @@ internal class PaymentDbContext : DbContext
 
 public class Card
 {
-    public Guid Id { get; set; }
-    public ICollection<Transaction> Transactions { get; } = new List<Transaction>();
+    public Guid Id { get; init; }
+    public ICollection<Transaction> Transactions { get; } = [];
 }
 
 public class Transaction
 {
-    public Guid Id { get; set; }
-    public Guid CardId { get; set; }
-    public Card Card { get; set; } = null!;
-    public int Amount { get; set; }
+    public Guid Id { get; init; }
+    public Guid CardId { get; init; }
+    public Card Card { get; init; } = null!;
+    public int Amount { get; init; }
+    public DateTimeOffset Timestamp { get; init; }
+    public Guid TerminalId { get; init; }
 }

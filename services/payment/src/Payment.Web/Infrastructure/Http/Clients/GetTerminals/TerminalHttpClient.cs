@@ -1,14 +1,14 @@
 ﻿namespace Payment.Web.Infrastructure.Http.Clients.GetTerminals;
 
-internal class StaffHttpClient : BaseHttpClient, IStaffHttpClient
+internal class TerminalHttpClient : BaseHttpClient, ITerminalHttpClient
 {
-    public StaffHttpClient(HttpClient httpClient) : base(httpClient)
+    public TerminalHttpClient(HttpClient httpClient) : base(httpClient)
     {
     }
 
     public async Task<IEnumerable<Guid>> GetTerminalIdsAsync(CancellationToken cancellationToken)
     {
-        var terminals = await GetAsync<IEnumerable<TerminalResponse>>("/terminals");
+        var terminals = await GetAsync<IEnumerable<TerminalDto>>("terminals");
 
         return terminals.Select(t => t.Id);
     }

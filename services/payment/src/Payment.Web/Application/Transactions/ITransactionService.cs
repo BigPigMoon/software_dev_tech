@@ -15,5 +15,5 @@ public interface ITransactionServiceReadRepository
 
 public interface ITransactionServiceWriteRepository
 {
-    Task AddNewTransaction(Guid cardId, int amount, CancellationToken cancellationToken);
+    Task AddNewTransaction(Guid terminalId, Guid cardId, int amount, CancellationToken cancellationToken);
 }

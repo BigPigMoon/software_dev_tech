@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Payment.Web.Infrastructure.Database;
@@ -11,9 +12,11 @@ using Payment.Web.Infrastructure.Database;
 namespace Payment.Web.Migrations
 {
     [DbContext(typeof(PaymentDbContext))]
-    partial class PaymentContextModelSnapshot : ModelSnapshot
+    [Migration("20250525084148_AddTerminalAndTime")]
+    partial class AddTerminalAndTime
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

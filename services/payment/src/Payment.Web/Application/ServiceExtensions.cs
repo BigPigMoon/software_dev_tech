@@ -1,5 +1,7 @@
 ﻿using Payment.Web.Application.GetCards;
 using Payment.Web.Application.GetCards.Implementation;
+using Payment.Web.Application.History;
+using Payment.Web.Application.History.Implementation;
 using Payment.Web.Application.Terminals;
 using Payment.Web.Application.Terminals.Implementation;
 using Payment.Web.Application.Transactions;
@@ -16,6 +18,8 @@ public static class ServiceExtensions
         services.AddScoped<ITransactionService, TransactionService>();
 
         services.AddScoped<ITerminalService, TerminalService>();
+
+        services.AddScoped<IHistoryService, HistoryService>();
 
         return services;
     }

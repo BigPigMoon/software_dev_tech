@@ -1,6 +1,4 @@
 ﻿using Payment.Web.Application.Transactions.Exceptions;
-using Payment.Web.Infrastructure.Http;
-using Payment.Web.Infrastructure.Http.Clients.BuyTicket;
 
 namespace Payment.Web.Application.Transactions.Implementation;
 
@@ -10,16 +8,13 @@ internal class TransactionService : ITransactionService
 
     private readonly ITransactionServiceReadRepository _transactionServiceReadRepository;
     private readonly ITransactionServiceWriteRepository _transactionServiceWriteRepository;
-    private readonly IStatisticHttpClient _statisticHttpClient;
 
     public TransactionService(
         ITransactionServiceWriteRepository transactionServiceWriteRepository,
-        ITransactionServiceReadRepository transactionServiceReadRepository,
-        IStatisticHttpClient statisticHttpClient)
+        ITransactionServiceReadRepository transactionServiceReadRepository)
     {
         _transactionServiceWriteRepository = transactionServiceWriteRepository;
         _transactionServiceReadRepository = transactionServiceReadRepository;
-        _statisticHttpClient = statisticHttpClient;
     }
 
     public async Task<int> GetCurrentBalance(Guid cardId, CancellationToken cancellationToken)
@@ -48,9 +43,7 @@ internal class TransactionService : ITransactionService
             throw new NotEnoughMoney();
         }
 
-        await _transactionServiceWriteRepository.AddNewTransaction(cardId, -TicketCost, cancellationToken);
-
-        await _statisticHttpClient.SendBuyTicketEventAsync(terminalId, cancellationToken);
+        await _transactionServiceWriteRepository.AddNewTransaction(terminalId, cardId, -TicketCost, cancellationToken);
     }
 
     public async Task AddMoney(Guid cardId, int amount, CancellationToken cancellationToken)
@@ -61,6 +54,6 @@ internal class TransactionService : ITransactionService
             throw new KeyNotFoundException();
         }
 
-        await _transactionServiceWriteRepository.AddNewTransaction(cardId, amount, cancellationToken);
+        await _transactionServiceWriteRepository.AddNewTransaction(Guid.Empty, cardId, amount, cancellationToken);
     }
 }

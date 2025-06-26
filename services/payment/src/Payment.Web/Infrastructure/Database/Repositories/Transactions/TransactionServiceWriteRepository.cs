@@ -13,7 +13,7 @@ internal class TransactionServiceWriteRepository : ITransactionServiceWriteRepos
         _context = context;
     }
 
-    public async Task AddNewTransaction(Guid cardId, int amount, CancellationToken cancellationToken)
+    public async Task AddNewTransaction(Guid terminalId, Guid cardId, int amount, CancellationToken cancellationToken)
     {
         await using var transaction = await _context.Database.BeginTransactionAsync(cancellationToken);
 
@@ -33,6 +33,8 @@ internal class TransactionServiceWriteRepository : ITransactionServiceWriteRepos
                 Amount = amount,
                 CardId = cardId,
                 Id = Guid.NewGuid(),
+                TerminalId = terminalId,
+                Timestamp = DateTimeOffset.UtcNow
             });
             await _context.SaveChangesAsync(cancellationToken);
 
